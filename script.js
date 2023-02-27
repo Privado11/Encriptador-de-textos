@@ -39,11 +39,11 @@ function copiarMensaje() {
     const texto = mensaje.value.toLowerCase();
     mensaje.select();
     document.execCommand("copy");
-    mensaje.style.backgroundImage = "url('./imagenes/Muñeco.png')";
 }   
 
 function borrarMensaje(){
     mensaje.value = "";
+    mensaje.style.backgroundImage = "url('./imagenes/Muñeco.png')";
 }
 
 btnEncriptar.addEventListener("click", encriptar);
