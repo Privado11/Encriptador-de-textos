@@ -5,69 +5,42 @@ const btnDesencriptar = document.querySelector(".btn-desencriptar");
 const btnCopiar = document.querySelector(".btn-copiar");
 const btnEliminar = document.querySelector(".btn-eliminar")
 
-const codigos = {
-    "a": "ai",
-    "e": "ufat",
-    "i": "imes",
-    "o": "ober",
-    "u": "enter"
-  };
 
 function encriptar(){
-    const texto = textArea.value.toLowerCase();
+    let matrizCodigo = [["e","enter"], ["i","imes"], ["a","ai"], ["o","ober"], ["u","ufat"],]
+    let texto = textArea.value.toLowerCase();
 
-    if (texto.trim() === "") {
-        alert("Por favor, ingrese un mensaje para encriptar.");
-        return;
-    }
-
-    let mensajeEncriptado = "";
-    for (let i = 0; i < texto.length; i++) {
-        const letra = texto[i];
-        if (codigos.hasOwnProperty(letra)) {
-            mensajeEncriptado += codigos[letra];
-        } else {
-            mensajeEncriptado += letra;
+    for (let i = 0; i < matrizCodigo.length; i++) {
+        if (texto.includes(matrizCodigo[i][0])) {
+            texto = texto.replaceAll(matrizCodigo[i][0], matrizCodigo[i][1])
         }
     }
-    mensaje.value = mensajeEncriptado;
+    mensaje.value = texto;
     textArea.value = "";
     mensaje.style.backgroundImage = "none";
 }
 
-function desencriptar(){
-    const texto = textArea.value.toLowerCase();
+function desencriptar() {
+    let matrizCodigo = [["e","enter"], ["i","imes"], ["a","ai"], ["o","ober"], ["u","ufat"],]
+    let texto = textArea.value.toLowerCase();
 
-    if (texto.trim() === "") {
-        alert("Por favor, ingrese un mensaje para desencriptar.");
-        return;
-    }
-
-    let mensajeDesencriptado = "";
-    for (let i = 0; i < texto.length; i += 4) {
-        const codigo = texto.substring(i, i + 4);
-    if (Object.values(codigos).includes(codigo)) {
-        mensajeDesencriptado += Object.keys(codigos)[Object.values(codigos).indexOf(codigo)];
-        } else {
-            mensajeDesencriptado += codigo;
+    for (let i = 0; i < matrizCodigo.length; i++) {
+        if (texto.includes(matrizCodigo[i][1])) {
+            texto = texto.replaceAll(matrizCodigo[i][1], matrizCodigo[i][0])
         }
     }
-
-    mensaje.value = mensajeDesencriptado;
+    mensaje.value = texto;
     textArea.value = "";
-}
+    mensaje.style.backgroundImage = "none"; 
+  }
+  
 
 function copiarMensaje() {
     const texto = mensaje.value.toLowerCase();
-    if (texto.trim() === "") {
-        alert("No hay ningún mensaje para copiar.");
-        return;
-    }else{
-        mensaje.select();
-        document.execCommand("copy");
-        alert("Mensaje copiado al portapapeles");
-    }
-}
+    mensaje.select();
+    document.execCommand("copy");
+    mensaje.style.backgroundImage = "url('./imagenes/Muñeco.png')";
+}   
 
 function borrarMensaje(){
     mensaje.value = "";
